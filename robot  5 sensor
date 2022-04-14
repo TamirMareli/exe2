@@ -1,0 +1,120 @@
+int IR_SENSOR_RIGHT= 11;
+int IR_SENSOR_LEFT =12;
+int sensorL=A0;
+int sensorM=A1;
+int sensorR=A2;
+int ena = 3;
+int in1 = 2;
+int in2 = 4;
+int enb = 5;
+int in3 = 6;
+int in4 = 7;
+
+int check=0;
+
+void setup() {
+  Serial.begin(9600);
+
+  pinMode(ena,OUTPUT);
+  pinMode(enb,OUTPUT);
+  pinMode(in1,OUTPUT);
+  pinMode(in2,OUTPUT);
+  pinMode(in3,OUTPUT);
+  pinMode(in4,OUTPUT);
+  pinMode(IR_SENSOR_RIGHT,INPUT);
+  pinMode(IR_SENSOR_LEFT,INPUT);
+}
+
+void loop() {
+  if((digitalRead(IR_SENSOR_RIGHT)==1 && digitalRead(IR_SENSOR_LEFT)==0) || (digitalRead(IR_SENSOR_RIGHT)==0 && digitalRead(IR_SENSOR_LEFT)==1)){
+    if(digitalRead(IR_SENSOR_RIGHT)==1){
+      analogWrite(ena, 255);
+  analogWrite(enb, 255);
+  digitalWrite(in1,LOW);
+  digitalWrite(in2, HIGH);
+  digitalWrite(in3,HIGH);
+  digitalWrite(in4, LOW);
+    }
+     if(digitalRead(IR_SENSOR_LEFT)==1){
+      analogWrite(ena, 255);
+  analogWrite(enb, 255);
+  digitalWrite(in1,HIGH);
+  digitalWrite(in2, LOW);
+  digitalWrite(in3,LOW);
+  digitalWrite(in4, HIGH);
+    }
+  }
+  else{
+  
+  Serial.print("sensorL= ");
+  Serial.println(digitalRead(sensorL));
+  Serial.print("sensorM= ");
+  Serial.println(digitalRead(sensorM));
+  Serial.print("sensorR= ");
+  Serial.println(digitalRead(sensorR));
+  Serial.println("-------------------------------------------------");
+  analogWrite(ena, 0);
+  analogWrite(enb, 0);
+  
+if(digitalRead(sensorR)==0 && digitalRead(sensorM)==1 && digitalRead(sensorL)==1)
+{
+  analogWrite(ena, 180);
+  analogWrite(enb, 0);
+  digitalWrite(in1,HIGH);
+  digitalWrite(in2, LOW);
+  digitalWrite(in3,HIGH);
+  digitalWrite(in4, LOW);
+}
+
+if(digitalRead(sensorR)==0 && digitalRead(sensorM)==0 && digitalRead(sensorL)==1)
+{
+  analogWrite(ena, 255);
+  analogWrite(enb, 0);
+  digitalWrite(in1,HIGH);
+  digitalWrite(in2, LOW);
+  digitalWrite(in3,HIGH);
+  digitalWrite(in4, LOW);
+}
+
+if(digitalRead(sensorR)==1 && digitalRead(sensorM)==1 && digitalRead(sensorL)==1)
+{
+  analogWrite(ena, 255);
+  analogWrite(enb, 255);
+  digitalWrite(in1,HIGH);
+  digitalWrite(in2, LOW);
+  digitalWrite(in3,HIGH);
+  digitalWrite(in4, LOW);
+}
+
+if(digitalRead(sensorR)==1 && digitalRead(sensorM)==1 && digitalRead(sensorL)==0)
+{
+  analogWrite(ena, 0);
+  analogWrite(enb, 180);
+  digitalWrite(in1,HIGH);
+  digitalWrite(in2, LOW);
+  digitalWrite(in3,HIGH);
+  digitalWrite(in4, LOW);
+}
+if(digitalRead(sensorR)==1 && digitalRead(sensorM)==0 && digitalRead(sensorL)==0)
+{
+  analogWrite(ena, 0);
+  analogWrite(enb, 255);
+  digitalWrite(in1,HIGH);
+  digitalWrite(in2, LOW);
+  digitalWrite(in3,HIGH);
+  digitalWrite(in4, LOW);
+}
+
+
+if(digitalRead(sensorR)==0 && digitalRead(sensorM)==0 && digitalRead(sensorL)==0)
+{
+  analogWrite(ena, 255);
+  analogWrite(enb, 255);
+  digitalWrite(in1,HIGH);
+  digitalWrite(in2, LOW);
+  digitalWrite(in3,HIGH);
+  digitalWrite(in4, LOW);
+}
+  }
+  
+}
